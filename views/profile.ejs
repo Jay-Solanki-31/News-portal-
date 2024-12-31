@@ -1,1 +1,38 @@
-<h1>user profile page</h1>
+<%-include ('partials/header') %>
+<div class="conatiner">
+    <div class="row mt-5" >
+        <div class="div col col-lg-5 mx-auto">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h2 class="fw-bold text-secondary">Profile</h2>
+                </div>
+               <div class="card-body p-4">
+                <table class="table table-stripes">
+                    <tr>
+                        <td>Name</td>
+                        <td><%= user.name %></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><%= user.email %></td>
+                    </tr>
+                    <tr>
+                        <td>Created At</td>
+                        <td><%= user.created_at %></td>
+                    </tr>
+                    <tr>
+                        <td>
+                        <form action="/logout" method="post">
+                            <input type="submit" value="logout" class="btn btn-danger">
+                        </form>                  
+                        </td>
+                    </tr>
+                </table>
+               </div>
+            </div> 
+
+        </div>
+
+    </div>
+</div>
+<%-include ('partials/footer') %>

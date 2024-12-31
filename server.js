@@ -19,7 +19,7 @@ app.use(express.urlencoded({extended:true}));
 // cookie middleware
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
-// sessiom middleware
+// session middleware
 app.use(session({
     secret:process.env.COOKIE_SECRET,
     resave:false,
@@ -39,13 +39,19 @@ app.use(function(req,res,next){
     next();
 });       
 
+// set login user session data 
+app.use(function(req,res,next){
+    res.locals.user = req.session.user || null;
+    next();
+})
 
 // set template engine
 app.set('view engine','ejs');
 // home route
 
+// Home Page Route
 app.get('/',(req,res)=>{
-    res.render('index',{title:'Home Page'});
+    res.render('index',{title:'Home Page', active:'Home'});
 });
 
 app.use('/',authRoutes);

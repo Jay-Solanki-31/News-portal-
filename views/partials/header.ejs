@@ -1,41 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=title %></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%=title %>
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg shadow navbar-light bg-light">
-        <div class="container">
-        <a class="navbar-brand" href="/">Auth APP</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
-            </li>
-            <!-- <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                User Name
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Logout</a>
-              </div>
-            </li> -->
-          </ul>
-        </div>
-    </div>
-      </nav>
-    <div class="container mt-4">
 
+<body>
+  <nav class="navbar navbar-expand-lg shadow navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="/">Auth APP</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item active">
+            <a class="nav-link <%= active == 'Home'?'active':''%>" href="/">Home</a>
+          </li>
+
+          <% if (user) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/my-post">My post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <%= active == 'Profile'?'active':'' %>" href="/profile">Profile</a>
+            </li>
+  
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <%= user.name %>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <form action="/logout" method="post">
+                    <input type="submit" value="logout" class="dropdown-item">
+                  </form>
+                </li>
+              </ul>
+            </li>
+            <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link <%= active == 'Login'?'active':''%>" href="/login">Login</a>
+              </li>
+              <% }%>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-4">
