@@ -1,9 +1,14 @@
 import express from 'express';
 import authRoutes from './routes/authRoutes.js';
+import postRoutes from './routes/postRoute.js';
 import connectMongoDB from './db.js';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import flash from 'connect-flash';
+import path from 'path';
+import connectMongoDbSession from 'connect-mongodb-session';
+const MongoDBStore = connectMongoDbSession(session);
+
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -26,9 +31,15 @@ app.use(session({
     saveUninitialized:false,
     cookie:{
         maxAge: 60000*60*24*7 // 1week
-    }
+    },
+    store: new MongoDBStore({
+        uri:process.env.MONGO_DB_URI,
+        collection:'sessions'
+    })
 }));
 
+// set upload folder as static folder
+app.use('/uploads',express.static(path.join(process.cwd(),'uploads')));
 
 // flase messsage middleware
 app.use(flash())
@@ -47,14 +58,12 @@ app.use(function(req,res,next){
 
 // set template engine
 app.set('view engine','ejs');
-// home route
 
-// Home Page Route
-app.get('/',(req,res)=>{
-    res.render('index',{title:'Home Page', active:'Home'});
-});
 
+// auth routes
 app.use('/',authRoutes);
+// post routes
+app.use('/',postRoutes);
 
 app.listen(PORT,()=>{
     console.log(`server is running on http://localhost:${PORT}`);

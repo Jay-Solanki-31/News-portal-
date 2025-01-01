@@ -27,7 +27,7 @@
 
           <% if (user) { %>
             <li class="nav-item">
-              <a class="nav-link" href="/my-post">My post</a>
+              <a class="nav-link  <%= active == 'My Posts'?'active':'' %>" href="/my-posts">My post</a>
             </li>
             <li class="nav-item">
               <a class="nav-link <%= active == 'Profile'?'active':'' %>" href="/profile">Profile</a>
