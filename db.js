@@ -7,4 +7,4 @@ export default async function connectMongoDB(){
     } catch (error) {
         console.log(error);
     }
-};
+}; 
