@@ -60,7 +60,7 @@ try {
         return res.redirect('/register');
     }
 
-    const hashedPassword = await bcrypt.hash(password,12);
+    const hashedPassword = await bcrypt.hash(password,12); 
 
     const user = new User({ 
         name,
@@ -120,6 +120,9 @@ router.post('/forgot_password', async(req, res)=>{
 
     try {
         const user = await User.findOne({email});
+        // console.log(user
+        // );
+        
 
         if(!user){
             req.flash('error','User not Found  With this Email');
@@ -177,7 +180,7 @@ router.post('/reset-password/', async(req,res)=>{
         user.token = null;
         user.password = await bcrypt.hash(new_password,12);
         user.save();
-        req.flash('sucess','Password reset Suceccfully');
+        req.flash('success','Password reset Successfuly');
         res.redirect('/login');
         
     } catch (error) {

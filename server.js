@@ -44,17 +44,20 @@ app.use('/uploads',express.static(path.join(process.cwd(),'uploads')));
 // flase messsage middleware
 app.use(flash())
 
+
 // store flash message for a views
 app.use(function(req,res,next){
     res.locals.message = req.flash();
     next();
 });       
 
+
 // set login user session data 
 app.use(function(req,res,next){
     res.locals.user = req.session.user || null;
     next();
 })
+
 
 // set template engine
 app.set('view engine','ejs');
