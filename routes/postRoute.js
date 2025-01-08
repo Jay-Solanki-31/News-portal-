@@ -133,7 +133,6 @@ router.post('/create-post',protactedRoutes,upload.single('image'),async(req,res)
         const user = await User.findById(req.session.user._id);
 
         // create new post
-
         const post = new Post({title,slug,content,image,user});
 
         //save post in user post array
@@ -154,10 +153,20 @@ router.post('/create-post',protactedRoutes,upload.single('image'),async(req,res)
 
 
 // handle update  post request 
+
+
+// for multiple images 
+// app.post('/create-post', upload.array('images', 5), (req, res) => {
+//     // separate file name form array  
+// });
+// single image upload
 router.post('/update-post/:id',protactedRoutes,upload.single('image'),async(req,res)=>{
     try {
+
+//      const images = req.files.map(file => file.filename); 
         const postId = req.params.id;
         const post = await Post.findById(postId);
+
         
 
         if(!post){
